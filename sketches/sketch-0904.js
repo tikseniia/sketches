@@ -2,11 +2,14 @@ let sketch0904 = function(p) {
   let osc, oscTop, envelope, envelopeTop, fft, cSize;
 
   let scaleArray = [40, 45, 38, 47, 36, 45, 34, 50];
+  // let scaleArrayTop = [45, 47, 45, 50, 47, 45];
   let scaleArrayTop = [55, 57, 55, 59];
   let note = 0;
   let noteTop = 0;
 
   p.setup = function() {
+    p.getAudioContext().suspend();
+
     cSize = document.getElementById('fSketch').offsetWidth;
     p.createCanvas(cSize, cSize);
     p.textSize(cSize / 10);
@@ -43,6 +46,7 @@ let sketch0904 = function(p) {
     p.text('apr9', cSize / 2, cSize / 2);
 
     if (p.mouseIsPressed && (p.mouseX < document.getElementById('fSketch').offsetWidth)) {
+      p.userStartAudio();
 
       if (p.frameCount % 7 === 0 || p.frameCount === 1) {
         let midiValue = scaleArray[note];
